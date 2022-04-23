@@ -1,0 +1,44 @@
+
+%se cé arco(Y,X) allora ci sarà anche arco(X,Y).
+arco(Y,X):-arco(X,Y).
+
+%GUESS una squadra puo impossessarsi di un nodo solo se è collegato ad un nodo che ha gia in possesso.
+possesso(Numero1,Squadra,Istante + 1)|nopossesso(Numero1,Squadra,Istante +1 ):-nodo(Numero,Costo,Livello),
+nodo(Numero1,Costo1,Livello1),arco(Numero,Numero1),possesso(Numero,Squadra,Istante),
+possesso(Numero1,Squadra1,Istante2),Squadra!=Squadra1,Squadra!=0,Costo>Costo1.
+
+%I nodi  inviano le navi ai vicini  se  tutti i vicini sono della stessa squadra
+mandaNavi(ID,ID1,Costo):-haTuttiviciniAmici(ID),nodo(ID,Costo,Livello),nodo(ID1,Costo1,Livello1).
+
+haTuttiviciniAmici(ID):-nodo(ID,_,_),#count{ID2 :arco(ID,ID2) }=A,
+#count{Squadra :possesso(ID,Squadra,_),possesso(ID2,Squadra),arco(ID,ID2) }=S,A=S.
+
+
+%se il nodo manda le navi allora il suo costo sarà zero
+nodo(ID,0,Livello):-mandaNavi(ID,_,Costo),nodo(ID,Costo,Livello).
+
+
+
+%il nodo manda le preferibilemente ad un nodo che non ha tutti i nodi collegati amici
+%quindi se mandiamo le navi ad un nodo che ha tutti vicini amici paghiamo
+:~mandaNavi(ID,ID1,Costo),nodo(ID,Costo,Livello),nodo(ID1,Costo1,Livello1),haTuttiviciniAmici(ID1).[1@2,ID1]
+
+%non è possibile che un nodo  non si impossessi del nodo vicino
+%se ha un costo maggiore di un nodo collegato
+:-nodo(Numero,Costo,Livello),
+nodo(Numero1,Costo1,Livello1),arco(Numero1,Numero),possesso(Numero,Squadra,Istante),
+possesso(Numero1,Squadra1,Istante2),Costo>Costo1,Squadra!=Squadra1,Squadra1=0,Squadra!=0,
+not possesso(Numero1,Squadra,Istante+1).
+
+
+
+%i nodi che mandano le navi vengono azzerati
+nodo(Numero,Cost,Livello):-possesso(Numero1,Squadra,Istante +1),possesso(Numero,Squadra,Istante),
+nodo(Numero,Costo,Livello),Cost=0,Numero!=Numero1,Squadra!=0.
+
+
+%un nodo non puo essere impossessato da due squadre contemporaneamente.
+:-nodo(Numero,Costo,Livello),
+possesso(Numero,Squadra,Istante),possesso(Numero,Squadra1,Istante),Squadra1 != Squadra.
+
+
