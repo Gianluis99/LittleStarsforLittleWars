@@ -5,18 +5,12 @@ import Model.Game;
 
 import Model.Nodo;
 import Model.Possesso;
-import it.unical.mat.embasp.base.Handler;
-import it.unical.mat.embasp.base.InputProgram;
-import it.unical.mat.embasp.base.OptionDescriptor;
+
 import it.unical.mat.embasp.base.Output;
-import it.unical.mat.embasp.languages.IllegalAnnotationException;
-import it.unical.mat.embasp.languages.ObjectNotValidException;
-import it.unical.mat.embasp.languages.asp.ASPInputProgram;
-import it.unical.mat.embasp.languages.asp.ASPMapper;
+
 import it.unical.mat.embasp.languages.asp.AnswerSet;
 import it.unical.mat.embasp.languages.asp.AnswerSets;
-import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
-import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
+
 import view.DrawGraph;
 
 public class MainClass {
@@ -24,39 +18,12 @@ public class MainClass {
 	public MainClass() {
 	}
 
-	private static String encodingResource = "encodings/LittleStarsforLittleWars";
-	private static Handler handler;
-
 	public static void main(String[] args) {
 
 		// scelgo il livllo
 		Game.getGame().scegliLivello(1);
 
-		// Windows:
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
-		OptionDescriptor option = new OptionDescriptor("--no-facts");
-		handler.addOption(option);
-
-		// su Linux 64bit :
-		// handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
-
-		InputProgram program = new ASPInputProgram();
-		program.addFilesPath(encodingResource);
-
-		try {
-			ASPMapper.getInstance().registerClass(Nodo.class);
-			ASPMapper.getInstance().registerClass(Arco.class);
-			ASPMapper.getInstance().registerClass(Possesso.class);
-		} catch (ObjectNotValidException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		} catch (IllegalAnnotationException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-
-		DrawGraph.getInstance().update(Game.getGame().getLivello());
-		DrawGraph.getInstance().run();
+		Game.getGame().startGame();
 
 		// il ciclo finirà quando una squadra avrà impossessato tutti i livelli
 		while (!Game.getGame().getLivello().isFinito()) {
@@ -76,13 +43,13 @@ public class MainClass {
 						// prendo gli archi e poi prendo i nodi collegati
 						for (Arco a : Game.getGame().getLivello().getArchi()) {
 
-							program.addObjectInput(a);
+							Game.getGame().getProgram().addObjectInput(a);
 							for (Nodo n : Game.getGame().getLivello().getNodi()) {
-								program.addObjectInput(n);
+								Game.getGame().getProgram().addObjectInput(n);
 
 							}
 							for (Possesso p : Game.getGame().getLivello().getPossessoNodi()) {
-								program.addObjectInput(p);
+								Game.getGame().getProgram().addObjectInput(p);
 
 							}
 						}
@@ -91,9 +58,9 @@ public class MainClass {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					handler.addProgram(program);
+					Game.getGame().getHandler().addProgram(Game.getGame().getProgram());
 
-					Output o = handler.startSync();
+					Output o = Game.getGame().getHandler().startSync();
 					// prendiamo gli answerSet
 					AnswerSets answers = (AnswerSets) o;
 					for (AnswerSet a : answers.getOptimalAnswerSets()) {
