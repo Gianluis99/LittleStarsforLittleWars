@@ -5,10 +5,18 @@ import java.util.List;
 
 public class Livello {
 
-	//composto da archi nodi 
-	private List<Arco>archi=new ArrayList<Arco>();
-	private List<Nodo>nodi=new ArrayList<Nodo>();
-	private List<Possesso> possessoNodi= new ArrayList<Possesso>();
+	//Un livello  è composto da archi nodi e i possessi iniziali
+	private List<Arco>archi;
+	private List<Nodo>nodi;
+	private List<Possesso> possessoNodi;
+	
+	
+	public Livello() {
+		archi=new ArrayList<Arco>();
+		nodi=new ArrayList<Nodo>();
+		possessoNodi= new ArrayList<Possesso>();
+		
+	}
 	
 	public List<Arco> getArchi() {
 		return archi;
@@ -39,15 +47,36 @@ public class Livello {
 		archi.add(a);
 	}
 	
+	
+	public Nodo getNodo(int id) {
+		for(Nodo n:nodi)
+			if(n.getId()==id)
+				return n;
+		
+		return null;
+	}
+	
+	
+	public Possesso getPossesso(int id) {
+		for (Possesso possesso : possessoNodi) 
+			if(possesso.getId()==id)
+				return possesso;
+		
+		return null;
+		
+	}
+	
 	//andiamo a cambiare  il possesso del nodo 
 	public void addPossesso(Possesso p) {
 		for (Possesso possesso : possessoNodi) {
+			
+			//se il possesso è gia presente invece di aggiungerlo lo modifica
 			if(p.getId()==possesso.getId()) {
 				setPossesso(p);
 				return;
 			}
 		}
-			
+		
 		possessoNodi.add(p);
 	}
 	
@@ -56,7 +85,7 @@ public class Livello {
 		for (Possesso possesso : possessoNodi) {
 			if(p.getId()==possesso.getId()) {
 				possesso.setId(p.getId());
-				possesso.setIstante(p.getIstante());
+				possesso.setIdPossesso(p.getIdPossesso());
 				possesso.setSquadra(p.getSquadra());
 
 				
@@ -79,5 +108,23 @@ public class Livello {
 			
 				
 	}
+
+	public boolean isFinito() {
+		if(possessoNodi.size()!=nodi.size())
+			return false;
+		
+		for(Possesso p:possessoNodi) {
+			if(p.getSquadra()!=possessoNodi.get(0).getSquadra())
+				return false;
+		}
+		
+		return true;
+	}
+
+	public void setNodoPrincipale(Possesso p,int idPossesso) {
+		p.setIdPossesso(idPossesso);
+		addPossesso(p);
+	}
+	
 
 }

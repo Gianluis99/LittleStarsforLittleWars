@@ -6,19 +6,20 @@ public class Livelli {
 	//creiamo livello uno dove inseriamo i nodi gli archi e le rispettive coordinate 
 	public static Livello livelloUno() {
 		Livello livello=new Livello();
-		Nodo nodo=new Nodo(0,6,1);
+		//creiamo i nodi e settiamo la posizione
+		Nodo nodo=new Nodo(0,19,1);
 		nodo.setX(400);
 		nodo.setY(300);
-		Nodo nodo1=new Nodo(1,-5,1);
+		Nodo nodo1=new Nodo(1,3,1);
 		nodo1.setX(520);
 		nodo1.setY(180);
-		Nodo nodo2=new Nodo(2,-4,1);
+		Nodo nodo2=new Nodo(2,4,1);
 		nodo2.setX(520);
 		nodo2.setY(420);
-		Nodo nodo3=new Nodo(3,-3,1);
+		Nodo nodo3=new Nodo(3,2,1);
 		nodo3.setX(740);
 		nodo3.setY(180);
-		Nodo nodo4=new Nodo(4,-1,1);
+		Nodo nodo4=new Nodo(4,1,1);
 		nodo4.setX(740);
 		nodo4.setY(420);
 		Nodo nodo5=new Nodo(5,2,1);
@@ -32,7 +33,7 @@ public class Livelli {
 		livello.addNodo(nodo4);
 		livello.addNodo(nodo5);
 		
-		
+		//aggiungimao gli archi ai nodi
 		Arco arco=new Arco(0,1);
 		arco.setNodo1(nodo);
 		arco.setNod2(nodo1);
@@ -59,18 +60,10 @@ public class Livelli {
 		livello.addArchi(arco4);
 		livello.addArchi(arco5);
 
-		Possesso possesso= new Possesso(0,1,0);
-		Possesso possesso1= new Possesso(1,0,0);
-		Possesso possesso2= new Possesso(2,0,0);
-		Possesso possesso3= new Possesso(3,0,0);
-		Possesso possesso4= new Possesso(4,0,0);
-		Possesso possesso5= new Possesso(5,2,0);
+		Possesso possesso= new Possesso(0,1,-1);
+		Possesso possesso5= new Possesso(5,2,-1);
 		
 		livello.addPossesso(possesso);
-		livello.addPossesso(possesso1);
-		livello.addPossesso(possesso2);
-		livello.addPossesso(possesso3);
-		livello.addPossesso(possesso4);
 		livello.addPossesso(possesso5);
 
 		

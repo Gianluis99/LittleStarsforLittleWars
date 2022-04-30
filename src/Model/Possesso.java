@@ -11,16 +11,16 @@ public class Possesso {
 	@Param(1)
 	private int squadra;
 	@Param(2)
-	private int istante;
+	private int idPossesso;
 
 	
 	public Possesso() {}
 
-	public Possesso(int id, int squadra,int istante) {
+	public Possesso(int id, int squadra,int idPossesso) {
 		super();
 		this.id = id;
 		this.squadra = squadra;
-		this.istante=istante;
+		this.idPossesso=idPossesso;
 	}	
 
 	public int getId() {
@@ -39,17 +39,17 @@ public class Possesso {
 		this.squadra = squadra;
 	}
 
-	public int getIstante() {
-		return istante;
+	public int getIdPossesso() {
+		return idPossesso;
 	}
 
-	public void setIstante(int istante) {
-		this.istante = istante;
+	public void setIdPossesso(int idPossesso) {
+		this.idPossesso = idPossesso;
 	}		
 	
 	@Override
 	public String toString() {
-		return "Id Nodo:"+id+" possesso squadra:"+squadra+" istante:"+istante;
+		return "Id Nodo:"+id+" possesso squadra:"+squadra+" idPossesso:"+idPossesso;
 	}
 	
 	

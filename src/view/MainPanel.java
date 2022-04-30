@@ -31,6 +31,8 @@ public class MainPanel extends JPanel {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (Arco e : livello.getArchi()) {
+			g.setColor(new Color(48, 45, 33));
+
 			for (Possesso p : livello.getPossessoNodi()) {
 				for (Possesso p2 : livello.getPossessoNodi()) {
 
@@ -40,8 +42,7 @@ public class MainPanel extends JPanel {
 
 						else if (p.getSquadra() == Squadra.gialla && p2.getSquadra()== Squadra.gialla || p.getSquadra() == Squadra.gialla && p2.getSquadra()== Squadra.nessuno || p.getSquadra() == Squadra.nessuno && p2.getSquadra()== Squadra.gialla)
 							g.setColor(new Color(159, 173, 21));
-						else
-							g.setColor(new Color(48, 45, 33));
+					
 
 					}
 
@@ -54,6 +55,7 @@ public class MainPanel extends JPanel {
 
 		//disegna i  nodi in base al possesso
 		for (Nodo n : livello.getNodi()) {
+			g.setColor(new Color(151, 164, 154));
 
 			for (Possesso p : livello.getPossessoNodi()) {
 				if (n.getId() == p.getId()) {

@@ -1,44 +1,94 @@
+%nodo(ID,Costo,Livello)
+%arco(ID1,ID2)
+%possesso(Nodo,Squadra,IdPossesso)
 
-%se cé arco(Y,X) allora ci sarà anche arco(X,Y).
+
 arco(Y,X):-arco(X,Y).
 
-%GUESS una squadra puo impossessarsi di un nodo solo se è collegato ad un nodo che ha gia in possesso.
-possesso(Numero1,Squadra,Istante + 1)|nopossesso(Numero1,Squadra,Istante +1 ):-nodo(Numero,Costo,Livello),
-nodo(Numero1,Costo1,Livello1),arco(Numero,Numero1),possesso(Numero,Squadra,Istante),
-possesso(Numero1,Squadra1,Istante2),Squadra!=Squadra1,Squadra!=0,Costo>Costo1.
+%guess dato un nodo vicino o l impossesso oppure no
+possesso(Nodo,Squadra,Nodo1) | nopossesso(Nodo,Squadra,Nodo1):-possesso(Nodo1,Squadra,_),
+arco(Nodo1,Nodo),nodo(Nodo,_,_).
 
-%I nodi  inviano le navi ai vicini  se  tutti i vicini sono della stessa squadra
-mandaNavi(ID,ID1,Costo):-haTuttiviciniAmici(ID),nodo(ID,Costo,Livello),nodo(ID1,Costo1,Livello1).
+%non è possibile che il costo sia maggiore 
+:-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,Nodo),
+Costo1>Costo.
 
-haTuttiviciniAmici(ID):-nodo(ID,_,_),#count{ID2 :arco(ID,ID2) }=A,
-#count{Squadra :possesso(ID,Squadra,_),possesso(ID2,Squadra),arco(ID,ID2) }=S,A=S.
+%se un nodo è gia impossessato dalla medesima squadra non dovrà conquistarlo
+:-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,-1),
+possesso(Nodo1,Squadra,Nodo).
 
+%si impossessa con priorità MAGGIORE del nodo che ha il costo minore
+:~possesso(Nodo,Squadra,_),nodo(Nodo,Costo,_).[Costo@6,Nodo]
 
-%se il nodo manda le navi allora il suo costo sarà zero
-nodo(ID,0,Livello):-mandaNavi(ID,_,Costo),nodo(ID,Costo,Livello).
+%si impossessa con priorità piu bassa del nodo che ha il livello piu alto
+%se il nodo rimane fuori allora pago per il livello, quindi piu è alto il livello piu pago
+:~ out(Nodo),nodo(Nodo,Costo,Livello).[Livello@5,Nodo]
 
+out(Nodo):-possesso(Nodo1,Squadra,-2),nodo(Nodo,_,_),not possesso(Nodo,Squadra,Nodo1).
 
-
-%il nodo manda le preferibilemente ad un nodo che non ha tutti i nodi collegati amici
-%quindi se mandiamo le navi ad un nodo che ha tutti vicini amici paghiamo
-:~mandaNavi(ID,ID1,Costo),nodo(ID,Costo,Livello),nodo(ID1,Costo1,Livello1),haTuttiviciniAmici(ID1).[1@2,ID1]
-
-%non è possibile che un nodo  non si impossessi del nodo vicino
-%se ha un costo maggiore di un nodo collegato
-:-nodo(Numero,Costo,Livello),
-nodo(Numero1,Costo1,Livello1),arco(Numero1,Numero),possesso(Numero,Squadra,Istante),
-possesso(Numero1,Squadra1,Istante2),Costo>Costo1,Squadra!=Squadra1,Squadra1=0,Squadra!=0,
-not possesso(Numero1,Squadra,Istante+1).
+%incentivo ad impossessarsi di tutti i nodi possibili
+%se abbiamo un nodo collegato che ha costo minore non vorrei che non fosse impossessato
+:~nodo(Nodo,Costo,_),possesso(Nodo,Squadra,-2),arco(Nodo,Nodo1),nodo(Nodo1,Costo1,_),
+not possesso(Nodo1,Squadra,Nodo).[3@7,Nodo1]
 
 
+% se la somma dei nodi vicini è maggiore allora non è possibile che entrambi siano impossessati
+:-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,-2),nodo(Nodo1,Costo1,_),nodo(Nodo2,Costo2,_),
+arco(Nodo,Nodo1),arco(Nodo,Nodo2),
+Costo2+Costo1>Costo,Nodo1!=Nodo2,
+possesso(Nodo2,Squadra,Nodo),possesso(Nodo1,Squadra,Nodo).
 
-%i nodi che mandano le navi vengono azzerati
-nodo(Numero,Cost,Livello):-possesso(Numero1,Squadra,Istante +1),possesso(Numero,Squadra,Istante),
-nodo(Numero,Costo,Livello),Cost=0,Numero!=Numero1,Squadra!=0.
+%solo il nodo principale puo impossessarsi di altri nodi
+:-possesso(Nodo,Squadra,IdPossesso),possesso(Nodo1,Squadra,Nodo),IdPossesso!=-2.
+
+%si impossessa solo di un nodo per volta
+:- #count{A,Nodo:possesso(Nodo,Squadra,-2),possesso(A,B,Nodo) }>1.
 
 
-%un nodo non puo essere impossessato da due squadre contemporaneamente.
-:-nodo(Numero,Costo,Livello),
-possesso(Numero,Squadra,Istante),possesso(Numero,Squadra1,Istante),Squadra1 != Squadra.
 
+%SECONDA PARTE il nodo manda le navi ai vicini amici
+
+%il nodo manderà le navi ad un nodo vicino se ha tutti i vicini amici
+mandaNavi(Nodo,Nodo1,Navi)|nomandaNavi(Nodo,Nodo1,Navi):-nodo(Nodo,Navi,_),nodo(Nodo1,_,_),
+tuttiViciniAmici(Nodo).
+
+%un nodo non puo mandare le navi a se stesso
+:-mandaNavi(Nodo,Nodo,_).
+
+
+%contiamo tutti i nodi vicini, se questo conteggio è uguale ai nodi vicini che hanno la stessa squadra
+%allora tutti i nodi vicini sono della stessa squadra
+tuttiViciniAmici(ID):-nodo(ID,_,_),#count{ID2,ID :arco(ID,ID2) }=A,
+#count{ID2,ID :possesso(ID,Squadra,-2),possesso(ID2,Squadra,_),arco(ID,ID2),ID<ID2 }=S,A=S.
+
+%non puo mandare le navi se ha un costo =0
+:-nodo(Nodo,Costo,_),mandaNavi(Nodo,_,Costo),Costo=0.
+
+%manda le navi solo ad un nodo per volta
+:-#count{B:mandaNavi(A,B,C) }>1.
+
+%il nodo manda le navi prima di tutto ai nodi che hanno un basso livello
+%per questo piu è alto il livello piu paghiamo
+:~nodo(Nodo,Costo,_),nodo(Nodo1,_,Livello),mandaNavi(Nodo,Nodo1,_).[Livello@2,Nodo1]
+
+%a parità di livello manda le navi ai nodi che hanno meno navi
+%per questo piu sono alte le navi piu paghiamo
+:~nodo(Nodo,Costo,_),nodo(Nodo1,Navi,_),mandaNavi(Nodo,Nodo1,_).[Navi@1,Nodo1]
+
+%incentivo a mandare le navi se ha tutti i nodi vicini amici
+:~nodo(Nodo,Costo,_),tuttiViciniAmici(Nodo), nomandaNavi(Nodo,Nodo1,_).[Costo@2,Nodo1]
+
+
+
+
+
+
+%in una passata non è possibile che il nodo si impossessi prima di un nodo e poi mandi delle navi 
+%in quanto i dati si devono aggiornare e li aggiorneremo tramite codice..
+%altrimenti lui potrebbe conquistare un nodo e poi se ha tutti i nodi della stessa squadra
+%manda le navi però non con i nodi aggiornati
+:-nodo(Nodo,_,_),possesso(_,_,Nodo),mandaNavi(Nodo,_,_).
+
+
+:-possesso(Nodo,Squadra,IdPossesso),mandaNavi(Nodo,_,_),IdPossesso!=-2.
 

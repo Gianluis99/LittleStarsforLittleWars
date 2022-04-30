@@ -32,6 +32,7 @@ public class DrawGraph {
 		
 	}
 	
+	//aggiorna il livello(grafica)
 	public void update(Livello livello) {
 		this.setLivello(livello);
 		j.update();
