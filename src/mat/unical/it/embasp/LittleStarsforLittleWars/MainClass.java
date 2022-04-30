@@ -26,7 +26,6 @@ public class MainClass {
 
 	private static String encodingResource = "encodings/LittleStarsforLittleWars";
 	private static Handler handler;
-	private static DrawGraph dg;
 
 	public static void main(String[] args) {
 
@@ -56,15 +55,14 @@ public class MainClass {
 			e2.printStackTrace();
 		}
 
-		dg = new DrawGraph(Game.getGame().getLivello());
-		dg.run();
+		DrawGraph.getInstance().update(Game.getGame().getLivello());
+		DrawGraph.getInstance().run();
 
-		
 		// il ciclo finirà quando una squadra avrà impossessato tutti i livelli
 		while (!Game.getGame().getLivello().isFinito()) {
 			// scorro tutti i nodi che hanno gia una squadra, in modo tale che posso
 			// compiere delle scelte
-			for (int idNodo = 0; idNodo < 6; idNodo++) {
+			for (int idNodo = 0; idNodo < Game.getGame().getLivello().getNodi().size(); idNodo++) {
 
 				Possesso possesso = Game.getGame().getLivello().getPossesso(idNodo);
 
@@ -99,7 +97,7 @@ public class MainClass {
 					// prendiamo gli answerSet
 					AnswerSets answers = (AnswerSets) o;
 					for (AnswerSet a : answers.getOptimalAnswerSets()) {
-						System.out.println("AS ragiona il nodo:"+idNodo);
+						System.out.println("AS ragiona il nodo:" + idNodo);
 						try {
 							for (Object obj : a.getAtoms()) {
 								// se è un oggetto della classe possesso
@@ -132,7 +130,7 @@ public class MainClass {
 
 							}
 							// aggiorna la grafica
-							dg.update(Game.getGame().getLivello());
+							DrawGraph.getInstance().update(Game.getGame().getLivello());
 
 						} catch (Exception e) {
 							e.printStackTrace();

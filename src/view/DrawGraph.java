@@ -7,16 +7,24 @@ import Model.Livello;
 
 
 public class DrawGraph {
-
+	//essendo che avremo piu thread che lavoreranno in parallelo allora ci serve un unica instanza che disegna il grafo
+	
+	
 	//riceve un livello e lo disegna
-	private Livello livello;
 	private JFrame f = new JFrame();
 	private MainPanel j;
-
-	public DrawGraph(Livello livello) {
-		this.setLivello(livello);
-		 j = new MainPanel(livello);
+	private static DrawGraph instance;
+	
+	private DrawGraph() {
+		j = new MainPanel();
 		setFrame();
+	}
+	
+	public static DrawGraph getInstance() {
+		if(instance==null) {
+			instance=new DrawGraph();
+		}
+		return instance;
 	}
 
 	public void run() {
@@ -34,17 +42,10 @@ public class DrawGraph {
 	
 	//aggiorna il livello(grafica)
 	public void update(Livello livello) {
-		this.setLivello(livello);
-		j.update();
+		j.update(livello);
 	}
 
-	public Livello getLivello() {
-		return livello;
-	}
 
-	public void setLivello(Livello livello) {
-		this.livello = livello;
-	}
 
 	
 }

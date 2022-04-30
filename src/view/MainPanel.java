@@ -19,10 +19,10 @@ public class MainPanel extends JPanel {
 	private static final long serialVersionUID = -2675341124466607264L;
 	private Livello livello;
 
-	public MainPanel(Livello livello) {
+	public MainPanel() {
 
 		setBackground(new Color(114, 220, 241));
-		this.livello = livello;
+		
 	}
 
 	
@@ -80,7 +80,8 @@ public class MainPanel extends JPanel {
 	}
 
 	//aggiorna la grafica
-	public void update() {
+	public void update(Livello livello) {
+		this.livello=livello;
 		repaint();
 	}
 

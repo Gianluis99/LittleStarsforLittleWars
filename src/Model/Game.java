@@ -17,8 +17,6 @@ public class Game {
 	}
 	
 	
-	
-	
 	public Livello getLivello() {
 		return livello;
 	}
