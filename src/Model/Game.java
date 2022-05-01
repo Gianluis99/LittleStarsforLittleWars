@@ -41,32 +41,35 @@ public class Game {
 			this.livello=Livelli.livelloUno();
 
 	}
+	public void startProgram() {
+		// Windows:
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
+		OptionDescriptor option = new OptionDescriptor("--no-facts");
+		handler.addOption(option);
+
+		// su Linux 64bit :
+		// handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
+
+		program = new ASPInputProgram();
+		program.addFilesPath(encodingResource);
+
+		try {
+			ASPMapper.getInstance().registerClass(Nodo.class);
+			ASPMapper.getInstance().registerClass(Arco.class);
+			ASPMapper.getInstance().registerClass(Possesso.class);
+		} catch (ObjectNotValidException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (IllegalAnnotationException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
+	}
 	
 	
 	public void startGame() {
-		// Windows:
-				handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
-				OptionDescriptor option = new OptionDescriptor("--no-facts");
-				handler.addOption(option);
-
-				// su Linux 64bit :
-				// handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
-
-				program = new ASPInputProgram();
-				program.addFilesPath(encodingResource);
-
-				try {
-					ASPMapper.getInstance().registerClass(Nodo.class);
-					ASPMapper.getInstance().registerClass(Arco.class);
-					ASPMapper.getInstance().registerClass(Possesso.class);
-				} catch (ObjectNotValidException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (IllegalAnnotationException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
+		
 				DrawGraph.getInstance().update(Game.getGame().getLivello());
 				DrawGraph.getInstance().run();
 	}

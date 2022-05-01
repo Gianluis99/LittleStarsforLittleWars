@@ -1,6 +1,4 @@
-%nodo(ID,Costo,Livello)
-%arco(ID1,ID2)
-%possesso(Nodo,Squadra,IdPossesso)
+
 
 
 arco(Y,X):-arco(X,Y).
@@ -91,4 +89,3 @@ tuttiViciniAmici(ID):-nodo(ID,_,_),#count{ID2,ID :arco(ID,ID2) }=A,
 
 
 :-possesso(Nodo,Squadra,IdPossesso),mandaNavi(Nodo,_,_),IdPossesso!=-2.
-
