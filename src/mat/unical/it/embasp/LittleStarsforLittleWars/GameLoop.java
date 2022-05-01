@@ -22,11 +22,11 @@ public class GameLoop implements Runnable {
 	public void run() {
 		// il ciclo finirà quando una squadra avrà impossessato tutti i livelli
 		while (!Game.getGame().finito()) {
-			// scorro tutti i nodi che hanno gia una squadra, in modo tale che posso
-			// compiere delle scelte
+		
 
 			Possesso possesso = Game.getGame().getLivello().getPossesso(idNodo);
 
+			//Se il nodo in questione ha una squadra allora potrà compiere una scelta
 			if (possesso != null) {
 				try {
 					Thread.sleep(500);
@@ -36,7 +36,7 @@ public class GameLoop implements Runnable {
 				}
 				synchronized (Game.getGame()) {
 					try {
-						Thread.sleep(1300);
+						Thread.sleep(1000);
 					} catch (InterruptedException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
@@ -50,6 +50,7 @@ public class GameLoop implements Runnable {
 					// scelta
 					Game.getGame().getLivello().setNodoPrincipale(possesso, -2);
 					// aggiungo i fatti tramite codice grazie alla classe livello
+					//questo permetterà anche di avere i  fatti aggiornati ogni volta
 					try {
 						// prendo gli archi e poi prendo i nodi collegati
 						for (Arco a : Game.getGame().getLivello().getArchi()) {
@@ -72,7 +73,7 @@ public class GameLoop implements Runnable {
 					handler.addProgram(program);
 
 					Output o = handler.startSync();
-					// prendiamo gli answerSet
+					// prendiamo l' answerSet ottimale
 					AnswerSets answers = (AnswerSets) o;
 					for (AnswerSet a : answers.getOptimalAnswerSets()) {
 						System.out.println("AS ragiona il nodo:" + idNodo);
