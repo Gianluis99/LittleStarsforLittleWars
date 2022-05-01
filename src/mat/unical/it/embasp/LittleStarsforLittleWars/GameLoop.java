@@ -9,7 +9,6 @@ import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.asp.AnswerSet;
 import it.unical.mat.embasp.languages.asp.AnswerSets;
-import view.DrawGraph;
 
 public class GameLoop implements Runnable {
 
@@ -30,7 +29,7 @@ public class GameLoop implements Runnable {
 
 			if (possesso != null) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				} catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -110,7 +109,7 @@ public class GameLoop implements Runnable {
 
 							}
 							// aggiorna la grafica
-							DrawGraph.getInstance().update(Game.getGame().getLivello());
+							Game.getGame().update();
 
 						} catch (Exception e) {
 							e.printStackTrace();
