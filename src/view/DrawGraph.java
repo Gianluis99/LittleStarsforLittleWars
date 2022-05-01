@@ -26,6 +26,8 @@ public class DrawGraph {
 	private Container container;
 	private JButton button;
 	private Controller controller=new Controller();
+	private JLabel label;
+	private boolean finito=false;
 	
 	private DrawGraph() {
 		f= new JFrame();
@@ -60,7 +62,7 @@ public class DrawGraph {
 		
 		
 		Font font=new Font("Times New Roman",Font.BOLD,70);
-		JLabel label=new JLabel("Little Stars For Little Wars");
+		label=new JLabel("Little Stars For Little Wars");
 		label.setForeground(Color.white);
 		label.setFont(font);
 		
@@ -70,6 +72,7 @@ public class DrawGraph {
 		button=new JButton("PLAY");
 		button.setBackground(new Color(114, 220, 241));
 		button.setForeground(Color.white);
+		
 		font=new Font("Times New Roman",Font.BOLD,30);
 		button.setFont(font);
 		button.addActionListener(controller);
@@ -110,6 +113,22 @@ public class DrawGraph {
 	
 	public void endGame() {
 		
+		if(!finito) {
+			
+			int squadra=Game.getGame().getLivello().getPossesso(0).getSquadra();	
+			if(squadra==1) {
+				label.setForeground(Color.blue);
+				label.setText("Blue won!");
+			}
+			else if(squadra==2) {
+				label.setForeground(Color.yellow);
+				label.setText("Yellow won!");
+			}
+
+			home.setVisible(true);
+			j.setVisible(false);
+			finito=true;
+		}
 	}
 
 

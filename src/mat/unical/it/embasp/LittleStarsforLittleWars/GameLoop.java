@@ -21,7 +21,7 @@ public class GameLoop implements Runnable {
 	@Override
 	public void run() {
 		// il ciclo finirà quando una squadra avrà impossessato tutti i livelli
-		while (!Game.getGame().getLivello().isFinito()) {
+		while (!Game.getGame().finito()) {
 			// scorro tutti i nodi che hanno gia una squadra, in modo tale che posso
 			// compiere delle scelte
 
@@ -122,6 +122,7 @@ public class GameLoop implements Runnable {
 				}
 			}
 		}
+		System.out.println("ho finito");
 	}
 
 }

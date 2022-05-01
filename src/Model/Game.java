@@ -25,6 +25,8 @@ public class Game {
 	private static String encodingResource = "encodings/LittleStarsforLittleWars";
 	private static Handler handler;
 	private InputProgram program;
+	
+
 
 	private Game() {
 
@@ -99,7 +101,14 @@ public class Game {
 	
 	
 	
-	
+	public boolean finito() {
+		if(livello.isFinito()) {
+			DrawGraph.getInstance().endGame();
+			return true;
+		}
+		
+		return false;
+	}
 	
 	
 	//il thread inizia a ragionare  e lo farà fin quando una squadra non avrà vinto
