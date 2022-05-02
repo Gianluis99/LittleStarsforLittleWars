@@ -47,7 +47,7 @@ possesso(Nodo2,Squadra,Nodo),possesso(Nodo1,Squadra,Nodo).
 %SECONDA PARTE il nodo manda le navi ai vicini amici
 
 %il nodo manderà le navi ad un nodo vicino se ha tutti i vicini amici
-mandaNavi(Nodo,Nodo1,Navi)|nomandaNavi(Nodo,Nodo1,Navi):-nodo(Nodo,Navi,_),nodo(Nodo1,_,_),
+mandaNavi(Nodo,Nodo1,Navi)|nomandaNavi(Nodo,Nodo1,Navi):-nodo(Nodo,Navi,_),nodo(Nodo1,_,_),arco(Nodo,Nodo1),
 tuttiViciniAmici(Nodo).
 
 %un nodo non puo mandare le navi a se stesso

@@ -67,6 +67,8 @@ public class Game {
 			ASPMapper.getInstance().registerClass(Nodo.class);
 			ASPMapper.getInstance().registerClass(Arco.class);
 			ASPMapper.getInstance().registerClass(Possesso.class);
+			ASPMapper.getInstance().registerClass(MandaNavi.class);
+
 		} catch (ObjectNotValidException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -106,7 +108,7 @@ public class Game {
 	public boolean finito() {
 		if(livello.isFinito()) {
 			try {
-				Thread.sleep(800);
+				Thread.sleep(600);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -128,7 +130,7 @@ public class Game {
 
 			if (possesso != null) {
 				try {
-					Thread.sleep(500);
+					Thread.sleep(100);
 				} catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -137,7 +139,7 @@ public class Game {
 					if(livello.isFinito())
 						return;
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(800);
 					} catch (InterruptedException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
@@ -203,11 +205,18 @@ public class Game {
 									// aggiungiamo il nodo impossessato al livello
 									livello.addPossesso(po);
 									System.out.println(po);
-								} else if ((obj instanceof Nodo)) {
+								} else if ((obj instanceof MandaNavi)) {
 
-									Nodo no = (Nodo) obj;
-									System.out.println(no);
-									livello.setNodo(no);
+									MandaNavi navi = (MandaNavi) obj;
+									Nodo nodo = livello.getNodo(navi.getNodo2());
+									nodo.setCosto(nodo.getCosto()+navi.getNavi());
+									livello.setNodo(nodo);
+									
+									nodo = livello.getNodo(navi.getNodo1());
+									nodo.setCosto(0);
+									livello.setNodo(nodo);
+
+									System.out.println(navi);
 								}
 
 							}

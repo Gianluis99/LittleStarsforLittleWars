@@ -61,10 +61,16 @@ public class Livelli {
 		livello.addArchi(arco5);
 
 		Possesso possesso= new Possesso(0,1,-1);
+		Possesso possesso1= new Possesso(1,1,-1);
+		Possesso possesso2= new Possesso(2,1,-1);
+
 		Possesso possesso5= new Possesso(5,2,-1);
 		
 		livello.addPossesso(possesso);
 		livello.addPossesso(possesso5);
+		livello.addPossesso(possesso1);
+		livello.addPossesso(possesso2);
+
 
 		
 		return livello;
