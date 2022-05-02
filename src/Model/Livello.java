@@ -107,9 +107,12 @@ public class Livello {
 	}
 
 	public boolean isFinito() {
-		if(possessoNodi.size()!=nodi.size())
-			return false;
 		
+//		se vogliamo che una squadra si impossessi di tutti i nodi
+		
+//		if(possessoNodi.size()!=nodi.size())
+//			return false;
+//		
 		for(Possesso p:possessoNodi) {
 			if(p.getSquadra()!=possessoNodi.get(0).getSquadra())
 				return false;
@@ -121,6 +124,14 @@ public class Livello {
 	public void setNodoPrincipale(Possesso p,int idPossesso) {
 		p.setIdPossesso(idPossesso);
 		addPossesso(p);
+	}
+	
+	public boolean haSquadra(Nodo n) {
+		for(Possesso p:possessoNodi) {
+			if(p.getId()==n.getId())
+				return true;
+		}
+		return false;
 	}
 	
 

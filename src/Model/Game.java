@@ -103,6 +103,12 @@ public class Game {
 	
 	public boolean finito() {
 		if(livello.isFinito()) {
+			try {
+				Thread.sleep(800);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DrawGraph.getInstance().endGame();
 			return true;
 		}
@@ -114,11 +120,9 @@ public class Game {
 	//il thread inizia a ragionare  e lo farà fin quando una squadra non avrà vinto
 	public void startThread(int idNodo) {
 		
-		while (!Game.getGame().getLivello().isFinito()) {
-			// scorro tutti i nodi che hanno gia una squadra, in modo tale che posso
-			// compiere delle scelte
+			
 
-			Possesso possesso = Game.getGame().getLivello().getPossesso(idNodo);
+			Possesso possesso = livello.getPossesso(idNodo);
 
 			if (possesso != null) {
 				try {
@@ -127,34 +131,36 @@ public class Game {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-				synchronized (Game.getGame()) {
+				synchronized (livello) {
+					if(livello.isFinito())
+						return;
 					try {
-						Thread.sleep(1300);
+						Thread.sleep(1000);
 					} catch (InterruptedException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();
 					}
 
-					Game.getGame().startProgram();
-					InputProgram program = Game.getGame().getProgram();
-					Handler handler = Game.getGame().getHandler();
+					startProgram();
+					InputProgram program = getProgram();
+					Handler handler = getHandler();
 
 					// setto il nodo principale con -2 in modo che solo lui potrà compiere una
 					// scelta
-					Game.getGame().getLivello().setNodoPrincipale(possesso, -2);
+					livello.setNodoPrincipale(possesso, -2);
 					
 					// aggiungo i fatti tramite codice grazie alla classe livello
 					//il mettiamo ad ogni ciclo poiche si aggiorneranno
 					try {
 						// prendo gli archi e poi prendo i nodi collegati
-						for (Arco a : Game.getGame().getLivello().getArchi()) {
+						for (Arco a : livello.getArchi()) {
 
 							program.addObjectInput(a);
-							for (Nodo n : Game.getGame().getLivello().getNodi()) {
+							for (Nodo n : livello.getNodi()) {
 								program.addObjectInput(n);
 
 							}
-							for (Possesso p : Game.getGame().getLivello().getPossessoNodi()) {
+							for (Possesso p : livello.getPossessoNodi()) {
 								program.addObjectInput(p);
 
 							}
@@ -180,31 +186,32 @@ public class Game {
 									Possesso po = (Possesso) obj;
 									po.setIdPossesso(-1);
 
-									Nodo nodo = Game.getGame().getLivello().getNodo(possesso.getId());
+									Nodo nodo = livello.getNodo(possesso.getId());
 
 									// aggiorniamo il costo del nodo impossessato
-									Nodo nodo1 = Game.getGame().getLivello().getNodo(po.getId());
+									Nodo nodo1 = livello.getNodo(po.getId());
 									int costo = -nodo1.getCosto();
 									nodo1.setCosto(nodo.getCosto() + costo);
-									Game.getGame().getLivello().setNodo(nodo);
+									livello.setNodo(nodo);
 
 									// aggiorniamo il costo del nodo principale
 									nodo.setCosto(0);
-									Game.getGame().getLivello().setNodo(nodo);
+									livello.setNodo(nodo);
 
 									// aggiungiamo il nodo impossessato al livello
-									Game.getGame().getLivello().addPossesso(po);
+									livello.addPossesso(po);
 									System.out.println(po);
 								} else if ((obj instanceof Nodo)) {
 
 									Nodo no = (Nodo) obj;
 									System.out.println(no);
-									Game.getGame().getLivello().setNodo(no);
+									livello.setNodo(no);
 								}
 
 							}
 							// aggiorna la grafica
 							DrawGraph.getInstance().update();
+							
 
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -212,13 +219,20 @@ public class Game {
 					}
 
 					// alla fine il nodo principale tornerà a -1
-					Game.getGame().getLivello().setNodoPrincipale(possesso, -1);
+					livello.setNodoPrincipale(possesso, -1);
 					program.clearAll();
 				}
 			}
-		}
+		
 
 	}
+	
+	
+	public void addShips() {
+			
+		
+	}
+	
 
 	public Handler getHandler() {
 		return handler;
