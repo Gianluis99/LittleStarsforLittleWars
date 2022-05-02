@@ -7,9 +7,9 @@ arco(Y,X):-arco(X,Y).
 possesso(Nodo,Squadra,Nodo1) | nopossesso(Nodo,Squadra,Nodo1):-possesso(Nodo1,Squadra,_),
 arco(Nodo1,Nodo),nodo(Nodo,_,_).
 
-%non è possibile che il costo sia maggiore 
+%non è possibile che il costo sia maggiore o uguale
 :-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,Nodo),
-Costo1>Costo.
+Costo1>=Costo.
 
 %se un nodo è gia impossessato dalla medesima squadra non dovrà conquistarlo
 :-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,-1),
