@@ -46,6 +46,8 @@ public class Game {
 	public void scegliLivello(int type) {
 		if (type == 1)
 			this.livello = Livelli.livelloUno();
+		else if (type == 2)
+			this.livello = Livelli.livelloDue();
 
 	}
 
@@ -82,7 +84,7 @@ public class Game {
 	
 	public void play() {
 		DrawGraph.getInstance().playGame();
-		for (int i = 0; i < Game.getGame().getLivello().getNodi().size(); i++) {
+		for (int i = 0; i < livello.getNodi().size(); i++) {
 			GameLoop gl = new GameLoop(i);
 			Thread thread = new Thread(gl);
 			thread.start();
