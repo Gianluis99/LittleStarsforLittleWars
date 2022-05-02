@@ -7,7 +7,7 @@ public class Livelli {
 	public static Livello livelloUno() {
 		Livello livello=new Livello();
 		//creiamo i nodi e settiamo la posizione
-		Nodo nodo=new Nodo(0,5,1);
+		Nodo nodo=new Nodo(0,6,1);
 		nodo.setX(400);
 		nodo.setY(300);
 		Nodo nodo1=new Nodo(1,2,2);
@@ -22,7 +22,7 @@ public class Livelli {
 		Nodo nodo4=new Nodo(4,1,1);
 		nodo4.setX(740);
 		nodo4.setY(420);
-		Nodo nodo5=new Nodo(5,8,1);
+		Nodo nodo5=new Nodo(5,3,1);
 		nodo5.setX(860);
 		nodo5.setY(300);
 		

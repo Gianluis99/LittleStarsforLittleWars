@@ -1,13 +1,14 @@
 
 
 
+
 arco(Y,X):-arco(X,Y).
 
 %guess dato un nodo vicino o l impossesso oppure no
 possesso(Nodo,Squadra,Nodo1) | nopossesso(Nodo,Squadra,Nodo1):-possesso(Nodo1,Squadra,_),
 arco(Nodo1,Nodo),nodo(Nodo,_,_).
 
-%non è possibile che il costo sia maggiore o uguale
+%non è possibile che il costo sia maggiore 
 :-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,Nodo),
 Costo1>=Costo.
 
@@ -15,19 +16,28 @@ Costo1>=Costo.
 :-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,_),nodo(Nodo1,Costo1,_),possesso(Nodo1,Squadra,-1),
 possesso(Nodo1,Squadra,Nodo).
 
-%si impossessa con priorità MAGGIORE del nodo che ha il costo minore
-:~possesso(Nodo,Squadra,_),nodo(Nodo,Costo,_).[Costo@6,Nodo]
+%si impossessa primariamente di un nodo nemico vicino
+:~possesso(Nodo,Squadra,-2),possesso(Nodo1,Squadra1,_),arco(Nodo,Nodo1),
+not possesso(Nodo1,Squadra,Nodo),Squadra!=Squadra1.[3@6,Nodo1]
+
+%se i vicini sono tutti neutri si impossessa  del nodo che ha il costo minore
+:~possesso(Nodo,Squadra,_),nodo(Nodo,Costo,_).[Costo@5,Nodo]
+
+
+
 
 %si impossessa con priorità piu bassa del nodo che ha il livello piu alto
 %se il nodo rimane fuori allora pago per il livello, quindi piu è alto il livello piu pago
-:~ out(Nodo),nodo(Nodo,Costo,Livello).[Livello@5,Nodo]
-
+:~ out(Nodo),nodo(Nodo,Costo,Livello).[Livello@4,Nodo]
 out(Nodo):-possesso(Nodo1,Squadra,-2),nodo(Nodo,_,_),not possesso(Nodo,Squadra,Nodo1).
+
 
 %incentivo ad impossessarsi di tutti i nodi possibili
 %se abbiamo un nodo collegato che ha costo minore non vorrei che non fosse impossessato
 :~nodo(Nodo,Costo,_),possesso(Nodo,Squadra,-2),arco(Nodo,Nodo1),nodo(Nodo1,Costo1,_),
 not possesso(Nodo1,Squadra,Nodo).[3@7,Nodo1]
+
+
 
 
 % se la somma dei nodi vicini è maggiore allora non è possibile che entrambi siano impossessati
@@ -47,7 +57,8 @@ possesso(Nodo2,Squadra,Nodo),possesso(Nodo1,Squadra,Nodo).
 %SECONDA PARTE il nodo manda le navi ai vicini amici
 
 %il nodo manderà le navi ad un nodo vicino se ha tutti i vicini amici
-mandaNavi(Nodo,Nodo1,Navi)|nomandaNavi(Nodo,Nodo1,Navi):-nodo(Nodo,Navi,_),nodo(Nodo1,_,_),arco(Nodo,Nodo1),
+mandaNavi(Nodo,Nodo1,Navi)|nomandaNavi(Nodo,Nodo1,Navi):-nodo(Nodo,Navi,_),nodo(Nodo1,_,_),
+arco(Nodo,Nodo1),
 tuttiViciniAmici(Nodo).
 
 %un nodo non puo mandare le navi a se stesso
@@ -89,3 +100,4 @@ tuttiViciniAmici(ID):-nodo(ID,_,_),#count{ID2,ID :arco(ID,ID2) }=A,
 
 
 :-possesso(Nodo,Squadra,IdPossesso),mandaNavi(Nodo,_,_),IdPossesso!=-2.
+
