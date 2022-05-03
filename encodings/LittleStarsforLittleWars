@@ -20,9 +20,8 @@ possesso(Nodo1,Squadra,Nodo).
 :~possesso(Nodo,Squadra,-2),possesso(Nodo1,Squadra1,_),arco(Nodo,Nodo1),
 not possesso(Nodo1,Squadra,Nodo),Squadra!=Squadra1.[3@6,Nodo1]
 
-%se i vicini sono tutti neutri si impossessa  del nodo che ha il costo minore
-:~possesso(Nodo,Squadra,_),nodo(Nodo,Costo,_).[Costo@5,Nodo]
-
+%si impossessa  del nodo che ha il costo minore
+:~possesso(Nodo1,Squadra,_),possesso(Nodo,Squadra,Nodo1),nodo(Nodo,Costo,_).[Costo@5,Nodo]
 
 
 
