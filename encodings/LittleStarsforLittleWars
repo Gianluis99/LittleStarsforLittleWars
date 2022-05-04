@@ -39,11 +39,6 @@ not possesso(Nodo1,Squadra,Nodo).[3@7,Nodo1]
 
 
 
-% se la somma dei nodi vicini è maggiore allora non è possibile che entrambi siano impossessati
-:-nodo(Nodo,Costo,_),possesso(Nodo,Squadra,-2),nodo(Nodo1,Costo1,_),nodo(Nodo2,Costo2,_),
-arco(Nodo,Nodo1),arco(Nodo,Nodo2),
-Costo2+Costo1>Costo,Nodo1!=Nodo2,
-possesso(Nodo2,Squadra,Nodo),possesso(Nodo1,Squadra,Nodo).
 
 %solo il nodo principale puo impossessarsi di altri nodi
 :-possesso(Nodo,Squadra,IdPossesso),possesso(Nodo1,Squadra,Nodo),IdPossesso!=-2.
