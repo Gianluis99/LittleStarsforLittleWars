@@ -72,7 +72,9 @@ public class Livello {
 			
 			//se il possesso è gia presente invece di aggiungerlo lo modifica
 			if(p.getId()==possesso.getId()) {
-				setPossesso(p);
+				possesso.setId(p.getId());
+				possesso.setIdPossesso(p.getIdPossesso());
+				possesso.setSquadra(p.getSquadra());
 				return;
 			}
 		}
@@ -81,7 +83,7 @@ public class Livello {
 	}
 	
 	//Ad ogni passaggio il livello viene aggiornato con i nuovi possessi 
-	private  void setPossesso(Possesso p) {
+	public  void setPossesso(Possesso p) {
 		for (Possesso possesso : possessoNodi) {
 			if(p.getId()==possesso.getId()) {
 				possesso.setId(p.getId());
@@ -113,8 +115,9 @@ public class Livello {
 //		if(possessoNodi.size()!=nodi.size())
 //			return false;
 //		
+		int squadra=possessoNodi.get(0).getSquadra();
 		for(Possesso p:possessoNodi) {
-			if(p.getSquadra()!=possessoNodi.get(0).getSquadra())
+			if(p.getSquadra()!=squadra)
 				return false;
 		}
 		

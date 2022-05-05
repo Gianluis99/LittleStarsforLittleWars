@@ -48,6 +48,10 @@ public class Game {
 			this.livello = Livelli.livelloUno();
 		else if (type == 2)
 			this.livello = Livelli.livelloDue();
+		else if (type == 3)
+			this.livello = Livelli.livelloTre();
+		else if (type == 4)
+			this.livello = Livelli.livelloQuattro();
 
 	}
 
@@ -130,7 +134,7 @@ public class Game {
 
 			if (possesso != null) {
 				try {
-					Thread.sleep(100);
+					Thread.sleep(50);
 				} catch (InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
