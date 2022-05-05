@@ -29,6 +29,13 @@ public class Game {
 
 
 	private Game() {
+		// Windows:
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
+		OptionDescriptor option = new OptionDescriptor("--no-facts");
+		handler.addOption(option);
+
+		// su Linux 64bit :
+		// handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
 
 	}
 
@@ -56,14 +63,7 @@ public class Game {
 	}
 
 	public void startProgram() {
-		// Windows:
-		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
-		OptionDescriptor option = new OptionDescriptor("--no-facts");
-		handler.addOption(option);
-
-		// su Linux 64bit :
-		// handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2"));
-
+	
 		program = new ASPInputProgram();
 		program.addFilesPath(encodingResource);
 
