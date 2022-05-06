@@ -62,7 +62,7 @@ tuttiViciniAmici(Nodo).
 %contiamo tutti i nodi vicini, se questo conteggio è uguale ai nodi vicini che hanno la stessa squadra
 %allora tutti i nodi vicini sono della stessa squadra
 tuttiViciniAmici(ID):-nodo(ID,_,_),#count{ID2,ID :arco(ID,ID2) }=A,
-#count{ID2,ID :possesso(ID,Squadra,-2),possesso(ID2,Squadra,_),arco(ID,ID2),ID<ID2 }=S,A=S.
+#count{ID2,ID :possesso(ID,Squadra,-2),possesso(ID2,Squadra,_),arco(ID,ID2)}=S,A=S.
 
 %non puo mandare le navi se ha un costo =0
 :-nodo(Nodo,Costo,_),mandaNavi(Nodo,_,Costo),Costo=0.
@@ -79,7 +79,8 @@ tuttiViciniAmici(ID):-nodo(ID,_,_),#count{ID2,ID :arco(ID,ID2) }=A,
 :~nodo(Nodo,Costo,_),nodo(Nodo1,Navi,_),mandaNavi(Nodo,Nodo1,_).[Navi@1,Nodo1]
 
 %incentivo a mandare le navi se ha tutti i nodi vicini amici
-:~nodo(Nodo,Costo,_),tuttiViciniAmici(Nodo), nomandaNavi(Nodo,Nodo1,_).[Costo@2,Nodo1]
+:~nodo(Nodo,Costo,_),tuttiViciniAmici(Nodo), nomandaNavi(Nodo,Nodo1,_).[Costo@3,Nodo1,Nodo]
+
 
 
 
