@@ -10,7 +10,7 @@ public class MainClass {
 	public static void main(String[] args) {
 
 		// scelgo il livello
-		Game.getGame().scegliLivello(1);
+		Game.getGame().scegliLivello(4);
 		Game.getGame().startGame();
 		
 		

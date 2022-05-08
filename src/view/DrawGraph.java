@@ -111,6 +111,7 @@ public class DrawGraph {
 		j.update(Game.getGame().getLivello());
 	}
 	
+	//quando il gioco finisce allora verrà mostrato chi è il vincitore
 	public void endGame() {
 		
 		if(!finito) {

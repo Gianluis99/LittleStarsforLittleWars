@@ -82,8 +82,16 @@ public class Nodo {
 		Font myFont = new Font ("Courier New", 1, 22);
 		g.setFont(myFont);
 		g.fillOval(x, y,60, 60);
+		g.setColor(Color.black);
+		g.drawOval(x, y, 59, 59);
+		
 		g.setColor(Color.white);
-		g.drawString(Integer.toString(costo), x +20, y+35);
+		g.drawString(Integer.toString(costo), x +23, y+35);
+		
+		myFont = new Font ("Courier New", 1, 10);
+		g.setFont(myFont);
+		g.drawString(Integer.toString(livello), x +26, y+48);
+
 	}
 	
 }

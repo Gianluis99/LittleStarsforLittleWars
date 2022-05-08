@@ -68,7 +68,7 @@ public class Arco {
 	
 	public void draw(Graphics g) {
 		
-         g.drawLine(nodo1.getX()+10, nodo1.getY()+30, nod2.getX()+10, nod2.getY()+30);
+         g.drawLine(nodo1.getX()+30, nodo1.getY()+30, nod2.getX()+30, nod2.getY()+30);
 	}
 	
 	
