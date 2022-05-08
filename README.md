@@ -67,12 +67,10 @@ la passata.
 * -1 indica un nodo che ha gia una squdra.
 * n indica che tale nodo è stato conquistato da un nodo n durante la passata.
 
-
-tutti i nodi  che appartengono ad una squadra possono fare delle scelte, successivamente eseguiamo l’encodings, su un singolo nodo principale (-2)
-Ogni nodo(tra quelli che appartengono gia ad una squadra ), continuerà a fare delle scelte fin quando il gioco non finisce.
+Ogni nodo(tra quelli che appartengono gia ad una squadra ), continueranno a fare delle scelte fin quando il gioco non finisce.
 Un nodo può fare solo una scelta per passata, ovvero puo impossessarsi solo di un nodo oppure puo mandare le navi solo ad un nodo, questo perchè i dati si aggiornano solo quando il nodo finirà la passata.
 
 
-2 tipologie thread:
-Il primo Thread incarna il nodo, che potrà eseguire delle scelte
-Il terzo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi
+# 2 tipologie di thread:
+I primo Thread incarna la figura nodo, che potrà eseguire delle scelte
+Il secondo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi
