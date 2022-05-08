@@ -72,7 +72,7 @@ Un nodo può fare solo una scelta per passata, ovvero puo impossessarsi solo di 
 
 
 
-#Altre informazioni
+# Altre informazioni
 
 # 2 tipologie di thread:
 I primo Thread incarna la figura nodo, che potrà eseguire delle scelte
