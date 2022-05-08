@@ -54,7 +54,7 @@ potrà compiere delle scelte:
 # Dettagli sul programma
 * Aggiornamento dei dati e  Conflitti gestiti tramite codice.
 * Introduzione Id possesso.                                         
-* 
+
 *   -1 indica che il possesso c’è sin dall’inizio della passata, quindi  distinguerà 
 *    i nodi che sono  impossessati sin dall inizio del ciclo, dai nodi che vengono impossessati durante la passata.
 
@@ -73,6 +73,6 @@ Ogni nodo(tra quelli che appartengono gia ad una squadra ), continuerà a fare d
 Un nodo può fare solo una scelta per passata, ovvero puo impossessarsi solo di un nodo oppure puo mandare le navi solo ad un nodo, questo perchè i dati si aggiornano solo quando il nodo finirà la passata.
 
 
- 2 tipologie thread:
+2 tipologie thread:
 Il primo Thread incarna il nodo, che potrà eseguire delle scelte
 Il terzo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi
