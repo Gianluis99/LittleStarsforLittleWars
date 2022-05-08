@@ -71,6 +71,9 @@ Ogni nodo(tra quelli che appartengono gia ad una squadra ), continueranno a fare
 Un nodo può fare solo una scelta per passata, ovvero puo impossessarsi solo di un nodo oppure puo mandare le navi solo ad un nodo, questo perchè i dati si aggiornano solo quando il nodo finirà la passata.
 
 
+
+#Altre informazioni
+
 # 2 tipologie di thread:
 I primo Thread incarna la figura nodo, che potrà eseguire delle scelte
 Il secondo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi
