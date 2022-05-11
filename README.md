@@ -1,4 +1,4 @@
-# LittleStarsforLittleWars
+# LittleStarsforLittleWars 
 
 Little Stars for Little Wars  è un gioco di strategia spaziale.
 Hai un obiettivo semplice: catturare e conquistare tutti i sistemi stellari nemici.
@@ -26,12 +26,17 @@ Suddiviso in due parti:
 # Seconda parte:il Nodo manda le navi ai propri vicini
 * se il nodo ha tutti i nodi vicini della stessa squadra allora manderà le proprie navi ai vicini.
 * il nodo sceglie il nodo piu conveniente a cui mandare le navi in base ai seguienti  parametri:
+* Nodo vicino che ha a sua volta un vicino dell'altra squadra.
+* Nodo vicino che ha un livello inferiore.
+* A parità di livello il nodo che possiede  meno unità.
 
 
 
 
 
-# Programma ASP-INTELLIGENZA ARTIFICIALE
+
+
+# INTELLIGENZA ARTIFICIALE-Programma ASP
 
 * nodo(ID,Costo,Livello)
     ID=identifica un nodo.
@@ -41,8 +46,8 @@ Suddiviso in due parti:
 * arco(NodoX,NodoY)	
    arco collega NodoX con NodoY
 
-* possesso(Nodo,Squadra,Istante).
-     indica quale squadra ha il possesso di un nodo in un determinato istante
+* possesso(Nodo,Squadra,IDPossesso).
+     indica quale squadra ha il possesso di un nodo.
 
 
 Questo programma si basa sul fatto di rendere un nodo intelligente, per ogni singolo nodo che appartiene ad una squadra verrà eseguito il programma e quindi
@@ -53,7 +58,7 @@ potrà compiere delle scelte:
 
 # Dettagli sul programma
 * Aggiornamento dei dati e  Conflitti gestiti tramite codice.
-* Introduzione Id possesso.                                         
+* Introduzione Id possesso,associato ad un possesso.                                     
 
 
 # ID Possesso
@@ -71,6 +76,9 @@ Un nodo può fare solo una scelta per passata, ovvero puo impossessarsi solo di 
 
 # Altre informazioni
 
-# 2 tipologie di thread:
-I primo Thread incarna la figura nodo, che potrà eseguire delle scelte
-Il secondo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi
+# Thread-2 tipologie di thread:
+* I primo Thread incarna la figura nodo, che potrà eseguire delle scelte
+* Il secondo thread si occuperà di scorrere tutti i nodi e in base al livello del nodo aggiungerà delle navi.
+
+# Interfaccia Grafica
+Framework Swing in Java basato sul framework AWT utilizzato per creare applicazioni GUI proprio come AWT.
