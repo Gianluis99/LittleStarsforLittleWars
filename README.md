@@ -55,9 +55,6 @@ potrà compiere delle scelte:
 * Aggiornamento dei dati e  Conflitti gestiti tramite codice.
 * Introduzione Id possesso.                                         
 
-*   -1 indica che il possesso c’è sin dall’inizio della passata, quindi  distinguerà 
-*    i nodi che sono  impossessati sin dall inizio del ciclo, dai nodi che vengono impossessati durante la passata.
-
 
 # ID Possesso
 Grazie all'ID Possesso riusciamo a capire se il nodo è quello principale, un nodo che appartiene gia ad una squadra oppure un nodo che è stato impossessato durante
