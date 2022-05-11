@@ -12,7 +12,6 @@ Suddiviso in due parti:
 * Nella seconda parte il nodo si occuperà di mandare le navi ai nodi vicini che sono della stessa squadra.
 
 
-
 # Prima parte:il Nodo conquista altri nodi
 * un nodo si impossessa di un altro nodo(neutro o nemico),solo se è collegato.
 * il nodo sceglie il nodo piu conveniente da impossessare in base ai seguienti  parametri:
