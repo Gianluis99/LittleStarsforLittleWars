@@ -31,7 +31,7 @@ Suddiviso in due parti:
 
 
 
-# Programma ASP
+# Programma ASP-INTELLIGENZA ARTIFICIALE
 
 * nodo(ID,Costo,Livello)
     ID=identifica un nodo.
